@@ -103,5 +103,5 @@ The program generates a **detailed report** that includes:
 5. **Diagnostic Ratios Among Wave Heights**
 
 ## References
-- **H. Groenendijk**, *"Shallow foreshore wave height statistics"*, Master's Thesis, Delft University of Technology, 1998.
-  - Available at: [http://example.com/groenendijk1998_shallow_foreshore_wave_height_statistics.pdf](http://example.com/groenendijk1998_shallow_foreshore_wave_height_statistics.pdf)
+- **H. Groenendijk**, *"Shallow foreshore wave height statistics"*, Master's Thesis, Delft University of Technology, 1998. Available at: [https://repository.tudelft.nl/record/uuid:fe03dda9-40d9-4046-87fb-459f01fcd3d3)
+  
