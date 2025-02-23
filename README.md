@@ -5,7 +5,7 @@ This C++ program computes local shallow-foreshore wave-height distribution param
 
 > *"Shallow foreshore wave height statistics"* - Master's Thesis, Delft University of Technology, 1998.
 
-The program is designed to calculate key wave parameters, perform cubic spline interpolation on empirical data, and generate a comprehensive report.
+The program is designed to calculate key wave parameters and generate a comprehensive report.
 
 ## Features
 - Reads **local significant spectral wave height (Hm0)** and **local depth (d)** from the command line or user input.
