@@ -1,41 +1,107 @@
-# Shallow Wave Heights Program
+# Shallow Wave Heights calculator
 
-## Program Overview
+## Overview
+This program computes local shallow-foreshore wave-height distribution parameters using a **Composed Weibull distribution model** based on the work of **H. Groenendijk** in:
 
-This program computes local shallow-foreshore wave-height distribution parameters using a Composed Weibull distribution model, as described in the thesis by H. Groenendijk, Master's Thesis, Delft University of Technology, 1998. 
+> *"Shallow foreshore wave height statistics"* - Master's Thesis, Delft University of Technology, 1998.
 
-### Key Steps:
+The program is designed to calculate key wave parameters, perform cubic spline interpolation on empirical data, and generate a comprehensive report.
 
-1. **Input Parameters**: Reads the local significant spectral wave height (\(H_{m0}\), in meters) and the local depth (\(d\), in meters) from command line or user prompt.
-2. **Free-Surface Variance Calculation**: Computes the free-surface variance \(m_0\) using the deep-water assumption:
-   \[
-   m_0 = \left(\frac{H_{m0}}{4}\right)^2
-   \]
-3. **Mean Square Wave Height Calculation**: Computes the mean square wave height as:
-   \[
-   H_{rms} = 3 \sqrt{m_0}
-   \]
-4. **Dimensional and Dimensionless Transitional Wave Height**: Computes the dimensional transitional wave height:
-   \[
-   H_{tr} = 0.12 \frac{d}{\sqrt{m_0}}
-   \]
-   and then calculates the dimensionless transitional parameter:
-   \[
-   \tilde{H}_{tr} = \frac{H_{tr}}{H_{rms}}
-   \]
-5. **Natural Cubic Spline Interpolation**: Interpolates values using Groenendijk’s Table 7.1, which comprises various dimensionless wave heights as ratios relative to \(H_{rms}\).
-6. **Final Wave Heights Calculation**: Computes final (dimensional) wave heights by multiplying dimensionless values by \(H_{rms}\).
-7. **Report Generation**: Produces a detailed report that includes:
-   - Input parameters (\(H_{m0}\) and \(d\))
-   - Calculated parameters (\(m_0\), \(H_{rms}\), and \(\tilde{H}_{tr}\))
-   - Dimensionless wave heights
-   - Final wave heights (in meters)
-   - Ratios among wave heights
+## Features
+- Reads **local significant spectral wave height (Hm0)** and **local depth (d)** from the command line or user input.
+- Computes key wave parameters including:
+  - Free-surface variance `m0`
+  - Mean square wave height `Hrms`
+  - Dimensional and dimensionless transitional wave heights (`Htr`, `H̃_tr`)
+- Uses **natural cubic spline interpolation** on empirical data from *Groenendijk's Table 7.1*.
+- Computes final **dimensional wave heights** based on interpolated values.
+- Generates a **detailed report** with all calculations and results, saved to `report.txt`.
 
-The report is printed to the console and also written to `report.txt`.
+## Installation
+To compile and run the program, follow these steps:
 
-## Compilation Instructions
+### Prerequisites
+- A C++ compiler supporting **C++17** (e.g., GCC, Clang, MSVC)
+- OpenMP for parallel execution (optional but recommended)
 
-To compile the program, use the following command:
-```bash
-g++ -O3 -fopenmp -march=native -std=c++17 -Wall -Wextra -pedantic -Wconversion -Wsign-conversion -static -static-libgcc -static-libstdc++ -o shallow-wave-heights shallow-wave-heights.cpp
+### Compilation
+Run the following command to compile the program:
+```sh
+ g++ -O3 -fopenmp -march=native -std=c++17 -Wall -Wextra -pedantic \
+     -Wconversion -Wsign-conversion -static -static-libgcc -static-libstdc++ \
+     -o shallow-wave-heights shallow-wave-heights.cpp
+```
+
+### Running the Program
+The program accepts input via **command-line arguments** or **interactive input**:
+
+#### Command-line usage:
+```sh
+./shallow-wave-heights <Hm0> <d>
+```
+Example:
+```sh
+./shallow-wave-heights 1.5 5.0
+```
+
+#### Interactive mode:
+If no command-line arguments are provided, the program prompts the user for input:
+```sh
+Enter local significant spectral wave height Hm0 (m): 1.5
+Enter local depth d (m): 5.0
+```
+
+## Computation Details
+### 1. Input Parameters
+The program requires two inputs:
+- **Hm0**: Local significant spectral wave height (m)
+- **d**: Local depth (m)
+
+### 2. Calculated Parameters
+The program calculates the following values:
+
+#### **Free-surface variance**:
+```math
+m0 = \left(\frac{Hm0}{4}\right)^2
+```
+#### **Mean square wave height**:
+```math
+Hrms = 3 \times \sqrt{m0}
+```
+#### **Dimensional transitional wave height**:
+```math
+Htr = \frac{0.12 \times d}{\sqrt{m0}}
+```
+#### **Dimensionless transitional parameter**:
+```math
+H̃_tr = \frac{Htr}{Hrms}
+```
+
+### 3. Wave Height Interpolation
+The program uses **natural cubic spline interpolation** to determine **nondimensional wave heights** from empirical data:
+
+**Interpolated wave height ratios (H/Hrms):**
+- **H̃₁**: Single highest wave
+- **H̃₂**: Second highest wave
+- **H̃(1/3)**: Significant wave height (1/3 highest waves)
+- **H̃(1/10)**: Wave height from top 10%
+- **H̃(1/50), H̃(1/100), H̃(1/1000)**: Extreme wave heights
+
+### 4. Final Dimensional Wave Heights
+The final wave heights are computed using:
+```math
+H_{final} = (H/Hrms) \times Hrms
+```
+for each of the interpolated values.
+
+## Output
+The program generates a **detailed report** that includes:
+1. **Input Parameters**
+2. **Computed Wave Parameters**
+3. **Dimensionless Wave Heights (ratios H/Hrms)**
+4. **Final Dimensional Wave Heights (in meters)**
+5. **Diagnostic Ratios Among Wave Heights**
+
+## References
+- **H. Groenendijk**, *"Shallow foreshore wave height statistics"*, Master's Thesis, Delft University of Technology, 1998.
+  - Available at: [http://example.com/groenendijk1998_shallow_foreshore_wave_height_statistics.pdf](http://example.com/groenendijk1998_shallow_foreshore_wave_height_statistics.pdf)
