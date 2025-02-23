@@ -1,4 +1,4 @@
-# Shallow Wave Heights calculator
+# Shallow Water Wave Heights calculator
 
 ## Overview
 This program computes local shallow-foreshore wave-height distribution parameters using a **Composed Weibull distribution model** based on the work of **H. Groenendijk** in:
