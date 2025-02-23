@@ -1,7 +1,7 @@
 # Shallow Water Waves calculator
 
 ## Overview
-This program computes local shallow-foreshore wave-height distribution parameters using a **Composed Weibull distribution model** based on the work of **H. Groenendijk** in:
+This C++ program computes local shallow-foreshore wave-height distribution parameters using a **Composed Weibull distribution model** based on the work of **H. Groenendijk** in:
 
 > *"Shallow foreshore wave height statistics"* - Master's Thesis, Delft University of Technology, 1998.
 
